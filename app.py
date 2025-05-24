@@ -7,7 +7,7 @@ import pandas as pd
 inference = pd.read_csv("inference_table.csv")
 
 # Prepare UI selections
-st.title("NEET College Predictor")
+st.title("NEET College Predictor (2024)")
 
 rank = st.number_input("Enter your rank", min_value=1)
 
