@@ -13,3 +13,5 @@ debug_final_df_after_dropping.csv
 testing on csvs
 notes.txt
 clean.txt
+credentials.json
+gcp_service_account.txt

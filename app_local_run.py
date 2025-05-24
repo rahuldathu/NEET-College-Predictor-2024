@@ -1,33 +1,19 @@
-# NEET College Predictor
+# NEET College Predictor to run locally using Streamlit
+# This code is designed to run locally and does not require any external hosting.
+# credentials.json should be in the same directory as app.py
+# oauth2 might be outdated, use the reference code in app.py
 import streamlit as st
 import pandas as pd
 import gspread
-from google.oauth2.service_account import Credentials
-import json
+from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
-
 def init_gsheet():
-    scope = [
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive"
-    ]
-
-    # Get JSON creds from Streamlit secrets
-    json_creds = st.secrets["gcp_service_account"]
-
-    # # Write creds to a temp file
-    # with tempfile.NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as f:
-    #     json.dump(json_creds, f)
-    #     temp_creds_path = f.name
-
-    creds = Credentials.from_service_account_info(json_creds, scopes=scope)
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
     client = gspread.authorize(creds)
-
-    # Open your Google Sheet by name
-    sheet = client.open("Neet_Predictor_log_Streamlit").sheet1
+    sheet = client.open("Neet_Predictor_log_Streamlit").sheet1  
     return sheet
-
 
 def log_to_gsheet(rank, category, course, quota):
     sheet = init_gsheet()
