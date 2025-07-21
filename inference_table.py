@@ -6,9 +6,7 @@ import numpy as np
 
 # -------------------------------
 # File paths
-R1_FILE = "R1.csv"
-R2_FILE = "R2.csv"
-R3_FILE = "R3.csv"
+from config import R1_FILE, R2_FILE, R3_FILE, INFERENCE_TABLE_FILE
 
 # -------------------------------
 # Load CSVs
@@ -115,5 +113,5 @@ round_info = final_df.groupby(
 inference = pd.merge(inference, round_info, on=["Institute", "Course", "Quota", "Candidate Category"], how="left")
 
 # Save to CSV
-inference.to_csv("inference_table.csv", index=False)
-print("✅ inference_table.csv has been created successfully.")
+inference.to_csv(INFERENCE_TABLE_FILE, index=False)
+print(f"✅ {INFERENCE_TABLE_FILE} has been created successfully.")
